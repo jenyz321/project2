@@ -9,6 +9,12 @@ var UserSchema = new Schema({
   // `username` must be of type String
   // `username` will trim leading and trailing whitespace before it's saved
   // `username` is a required field and throws a custom error message if not supplied
+  coder:{
+    type: String,
+    trim: true,
+    required: "Name Required"
+  },
+
   username: {
     type: String,
     trim: true,
@@ -83,7 +89,7 @@ var UserSchema = new Schema({
 // };
 
 // This creates our model from the above schema, using mongoose's model method
-var Coder = mongoose.model("Coder", UserSchema);
+var Members = mongoose.model("members", UserSchema);
 
 // Export the User model
-module.exports = Coder;
+module.exports = Members;
