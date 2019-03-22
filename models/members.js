@@ -9,10 +9,16 @@ var UserSchema = new Schema({
   // `username` must be of type String
   // `username` will trim leading and trailing whitespace before it's saved
   // `username` is a required field and throws a custom error message if not supplied
-  coder:{
+  firstName: {
     type: String,
     trim: true,
-    required: "Name Required"
+    required: "First Name Required"
+  },
+
+  lastName: {
+    type: String,
+    trim: true,
+    required: "Last Name Required"
   },
 
   username: {
@@ -50,20 +56,18 @@ var UserSchema = new Schema({
     required: "Please answer the question so we can find the best match!"
   },
   laguages: {
-    type: String, 
-    trim: true, 
+    type: String,
+    trim: true,
     required: "We want to know what languages you are familiar with!"
   }
 });
-
-
-  // `date` must be of type Date. The default value is the current date
+// `date` must be of type Date. The default value is the current date
 //   userCreated: {
 //     type: Date,
 //     default: Date.now
 //   },
-  // `isCool` must be of type Boolean
-  // `isCool` is set to false if no value is supplied for it
+// `isCool` must be of type Boolean
+// `isCool` is set to false if no value is supplied for it
 //   isCool: {
 //     type: Boolean,
 //     default: false
