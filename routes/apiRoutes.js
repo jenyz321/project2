@@ -2,9 +2,15 @@ var db = require("../models");
 
 module.exports = function(app) {
   // Get all examples
-  app.get("/api/examples", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.json(dbExamples);
+  app.get("/api/users", function(req, res) {
+    db.Users.findAll({}).then(function(users) {
+      res.json(users);
+    });
+  });
+
+  app.get("/api/users", function(req, res) {
+    db.Users.findById(id, function(err, user) {
+      res.json(user);
     });
   });
 
