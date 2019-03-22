@@ -51,12 +51,12 @@ var UserSchema = new Schema({
     match: [/.+@.+\..+/, "Please enter a valid e-mail address."]
   },
   answers: {
-    type: Number,
+    type: Array,
     trim: true,
     required: "Please answer the question so we can find the best match!"
   },
   laguages: {
-    type: String,
+    type: Array,
     trim: true,
     required: "We want to know what languages you are familiar with!"
   }
