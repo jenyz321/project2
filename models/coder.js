@@ -50,7 +50,7 @@ var UserSchema = new Schema({
     required: "Please answer the question so we can find the best match!"
   },
   laguages: {
-    type: Mixed, 
+    type: String, 
     trim: true, 
     required: "We want to know what languages you are familiar with!"
   }

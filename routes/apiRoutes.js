@@ -3,13 +3,13 @@ var db = require("../models");
 module.exports = function(app) {
   // Get all examples
   app.get("/api/users", function(req, res) {
-    db.Users.findAll({}).then(function(users) {
+    db.Members.create({}).then(function(users) {
       res.json(users);
     });
   });
 
   app.get("/api/users", function(req, res) {
-    db.Users.findById(id, function(err, user) {
+    db.Members.findById(id, function(err, user) {
       res.json(user);
     });
   });
