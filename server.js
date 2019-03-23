@@ -66,7 +66,7 @@ db.once("open", function() {
 app.get("/users", function(req, res) {
   Members.find({})
     .then(function(dbMember) {
-      console.log('dbMember', dbMember);
+      console.log("dbMember", dbMember);
       // If any Books are found, send them to the client
       res.json(dbMember);
     })
@@ -75,17 +75,13 @@ app.get("/users", function(req, res) {
       res.json(err);
     });
 });
-//To do reviewing a match
-//app.get("/", function (req, res) {
-
-// });
 
 app.post("/submit", function(req, res) {
-  // Create a new Book in the database
+  // Create a new member in the database
   Members.create(req.body)
     .then(function(dbMember) {
-      // If the Library was updated successfully, send it back to the client
    //   getMatches(req.body);
+      // If the member was updated successfully, send it back to the client
       res.json(dbMember);
     })
     .catch(function(err) {
@@ -114,70 +110,6 @@ app.delete("/delete/:id", function(req, res) {
     }
   );
 });
-
-const  getMatches=()=>{
-  console.log('in matches')
-  //Comparing user with their best members match
-  var totalDifference = 0;
-  //Object to hold the best match
-  //var coderMatch = {
-  //  name: "",
- //   photo: "",
-  //  membersDifference: 50
- // };
-   // Here we take the result of the user's survey POST and parse it.
-  var userData = req.body;
-  var userName = userData.name;
-  var userScores = userData.scores;
-  console.log("userData"   + userData);
-  console.log("userName " + userName);
-  // Converting the users score to a number (Instead of string)
-  var userScoresNum = userScores.map(function (item) {
-    return parseInt(item, 10);
-  });
-   userData = {
-    "name": req.body.name,
-    "photo": req.body.photo,
-    "scores": userScoresNum
-  };
-  console.log(userData);
-
-  console.log("Name: " + userName);
-  console.log("User Score " + userScores);
-   console.log('userScoreNum outside function ' + userScoresNum);
-   // Converting the users score to a sum number (Adds up all the numbers in array)
-  //
-  var userScoresSum = userScoresNum.reduce((tot, amt) => tot + amt, 0);
-   console.log("Sum of users score " + userScoresSum);
-  console.log("Best match members diff " + coderMatch.membersDifference);
-
-  // console.log("+++++++=================++++++++++");
-   // Loop through all the members possibilities in the database.
-  for (var i = 0; i < memberssData.length; i++) {
-     console.log(memberssData[i].name);
-    totalDifference = 0;
-    console.log("Total Diff " + totalDifference);
-    console.log("Best match members diff " + coderMatch.membersDifference);
-     var membersScoreSum = memberssData[i].scores.reduce((tot, amt) => tot + amt, 0);
-    console.log("Total members score " + membersScoreSum);
-    totalDifference += Math.abs(userScoresSum - membersScoreSum);
-    console.log(" -------------------> " + totalDifference);
-       coderMatch.name.push(memberssData[i].name);
-        coderMatch.photo.push(memberssData[i].photo);
-        coderMatch.membersDifference.push(totalDifference);
-     }
-    console.log(totalDifference + " Total Difference");
-    console.log(coderMatch);
-    // Finally save the user's data to the database (this has to happen AFTER the check. otherwise,
-    // the database will always return that the user is the user's best members).
-    memberssData.push(userData);
-    console.log("New User added");
-    console.log(userData);
-    // Return a JSON with the user's coderMatch. This will be used by the HTML in the next page.
-    res.json(coderMatch);
-   };
-
-
 //module.exports = app;
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
