@@ -55,7 +55,7 @@ mongoose.connect("mongodb://localhost/codeConnectdb", {
 app.get("/users", function(req, res) {
   Members.find({})
     .then(function(dbMember) {
-      console.log('dbMember', dbMember);
+      console.log("dbMember", dbMember);
       // If any Books are found, send them to the client
       res.json(dbMember);
     })
@@ -64,16 +64,12 @@ app.get("/users", function(req, res) {
       res.json(err);
     });
 });
-//To do reviewing a match
-//app.get("/", function (req, res) {
-
-// });
 
 app.post("/submit", function(req, res) {
-  // Create a new Book in the database
+  // Create a new member in the database
   Members.create(req.body)
     .then(function(dbMember) {
-      // If the Library was updated successfully, send it back to the client
+      // If the member was updated successfully, send it back to the client
       res.json(dbMember);
     })
     .catch(function(err) {
@@ -82,6 +78,26 @@ app.post("/submit", function(req, res) {
     });
 });
 
+app.delete("/delete/:id", function(req, res) {
+  // Remove a note using the objectID
+  Members.findOneAndRemove(
+    {
+      _id: req.params.id
+    },
+    function(error, removed) {
+      // Log any errors from mongojs
+      if (error) {
+        console.log(error);
+        res.send(error);
+      } else {
+        // Otherwise, send the mongojs response to the browser
+        // This will fire off the success function of the ajax request
+        console.log(removed);
+        res.send(removed);
+      }
+    }
+  );
+});
 //module.exports = app;
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
