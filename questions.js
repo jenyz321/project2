@@ -1,7 +1,7 @@
 var questions = [
   {
     // eslint-disable-next-line prettier/prettier
-    questionOne: "Do you have more experience in front end or back end web development",
+    questionOne: "Do you have more experience in front end or back end web development?",
     answers: ["Front end", "Back end"]
   },
   {
