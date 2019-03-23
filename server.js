@@ -35,8 +35,19 @@ if (process.env.NODE_ENV === "test") {
 }
 
 //connection to mongo
-mongoose.connect("mongodb://localhost/codeConnectdb", {
-  useNewUrlParser: true
+var databaseUri = "mongodb://localhost/codeConnectdb";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseUri);
+}
+var db = mongoose.connection;
+db.on("error", function(err) {
+  console.log("Mongoose Error:" + err);
+});
+
+db.once("open", function() {
+  console.log("Mongoos connection successful.");
 });
 
 // app.post("/library", function(req, res) {
