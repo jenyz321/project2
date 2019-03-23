@@ -55,7 +55,7 @@ var UserSchema = new Schema({
     trim: true,
     required: "Please answer the question so we can find the best match!"
   },
-  laguages: {
+  languages: {
     type: Array,
     trim: true,
     required: "We want to know what languages you are familiar with!"

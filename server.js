@@ -55,6 +55,7 @@ mongoose.connect("mongodb://localhost/codeConnectdb", {
 app.get("/users", function(req, res) {
   Members.find({})
     .then(function(dbMember) {
+      console.log('dbMember', dbMember);
       // If any Books are found, send them to the client
       res.json(dbMember);
     })
@@ -70,7 +71,7 @@ app.get("/users", function(req, res) {
 
 app.post("/submit", function(req, res) {
   // Create a new Book in the database
-  db.Member.create(req.body)
+  Members.create(req.body)
     .then(function(dbMember) {
       // If the Library was updated successfully, send it back to the client
       res.json(dbMember);

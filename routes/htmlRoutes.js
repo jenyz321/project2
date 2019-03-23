@@ -1,12 +1,12 @@
-var db = require("../models");
+var Members = require("../models/members");
 
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+    Members.find({}).then(function(member) {
       res.render("index", {
         msg: "Welcome!",
-        examples: dbExamples
+        examples: member
       });
     });
   });
