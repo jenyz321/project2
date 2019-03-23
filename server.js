@@ -82,6 +82,71 @@ app.post("/submit", function(req, res) {
     });
 });
 
+const  getMatches=()=>{
+  //Comparing user with their best members match
+  var totalDifference = 0;
+  //Object to hold the best match
+  var coderMatch = {
+    name: "",
+    photo: "",
+    membersDifference: 50
+  };
+   // Here we take the result of the user's survey POST and parse it.
+  var userData = req.body;
+  var userName = userData.name;
+  var userScores = userData.scores;
+  // Converting the users score to a number (Instead of string)
+  var userScoresNum = userScores.map(function (item) {
+    return parseInt(item, 10);
+  });
+   userData = {
+    "name": req.body.name,
+    "photo": req.body.photo,
+    "scores": userScoresNum
+  };
+  console.log(userData);
+
+  console.log("Name: " + userName);
+  console.log("User Score " + userScores);
+   console.log('userScoreNum outside function ' + userScoresNum);
+   // Converting the users score to a sum number (Adds up all the numbers in array)
+  //
+  var userScoresSum = userScoresNum.reduce((tot, amt) => tot + amt, 0);
+   console.log("Sum of users score " + userScoresSum);
+  console.log("Best match members diff " + coderMatch.membersDifference);
+
+  // console.log("+++++++=================++++++++++");
+   // Loop through all the members possibilities in the database.
+  for (var i = 0; i < memberssData.length; i++) {
+     console.log(memberssData[i].name);
+    totalDifference = 0;
+    console.log("Total Diff " + totalDifference);
+    console.log("Best match members diff " + coderMatch.membersDifference);
+     var membersScoreSum = memberssData[i].scores.reduce((tot, amt) => tot + amt, 0);
+    console.log("Total members score " + membersScoreSum);
+    totalDifference += Math.abs(userScoresSum - membersScoreSum);
+    console.log(" -------------------> " + totalDifference);
+     // If the sum of differences is less then the differences of the current "best match"
+    if (totalDifference <= coderMatch.membersDifference) {
+       // Reset the coderMatch to be the new members.
+      coderMatch.name = memberssData[i].name;
+      coderMatch.photo = memberssData[i].photo;
+      coderMatch.membersDifference = totalDifference;
+      // }
+     }
+    console.log(totalDifference + " Total Difference");
+   }
+  console.log(coderMatch);
+  // Finally save the user's data to the database (this has to happen AFTER the check. otherwise,
+  // the database will always return that the user is the user's best members).
+  memberssData.push(userData);
+  console.log("New User added");
+  console.log(userData);
+  // Return a JSON with the user's coderMatch. This will be used by the HTML in the next page.
+  res.json(coderMatch);
+
+};
+
 //module.exports = app;
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
