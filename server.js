@@ -76,17 +76,39 @@ app.get("/users", function(req, res) {
     });
 });
 
-app.post("/submit", function(req, res) {
+app.post("/login", function(req, res) {
+  Members.findOne({ email: req.body.loginEmail })
+    .then(function(dbMember) {
+      console.log(req.body.loginEmail);
+
+      console.log("dbMember", dbMember);
+      // If any Books are found, send them to the client
+      if (dbMember.password === req.body.loginPassword) {
+        res.render("profile", dbMember);
+      } else {
+        console.log("Wrong password!");
+        res.render("profile", dbMember);
+      }
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+});
+
+app.post("/register", function(req, res) {
   // Create a new member in the database
   Members.create(req.body)
     .then(function(dbMember) {
-   //   getMatches(req.body);
+      //getMatches(req.body);
+      console.log("dbMember", dbMember);
       // If the member was updated successfully, send it back to the client
       res.json(dbMember);
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
-      res.json(err);
+      console.log("There was an error signing up!");
+      console.log(res.json(err));
     });
 });
 
