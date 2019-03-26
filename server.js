@@ -1,4 +1,3 @@
-
 var express = require("express");
 var exphbs = require("express-handlebars");
 var mongoose = require("mongoose");
@@ -112,6 +111,25 @@ app.post("/register", function(req, res) {
     });
 });
 
+app.post("/submitQuestions/:id", function(req, res) {
+  a = Object.values(req.body);
+  id = req.params.id;
+  console.log(a);
+  a.forEach(function(e) {
+    questionsUpdate(e, id);
+  });
+});
+
+app.post("/submitLanguages/:id", function(req, res) {
+  a = Object.values(req.body);
+  id = req.params.id;
+  console.log(a);
+  a.forEach(function(e) {
+    languagesUpdate(e, id);
+  });
+});
+
+
 app.delete("/delete/:id", function(req, res) {
   // Remove a note using the objectID
   Members.findOneAndRemove(
@@ -136,3 +154,25 @@ app.delete("/delete/:id", function(req, res) {
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
+
+function questionsUpdate(a, id) {
+  Members.findOneAndUpdate(
+    { _id: id },
+    {
+      $push: { answers: a }
+    }
+  ).then(function(dbMember) {
+    console.log(dbMember);
+  });
+}
+
+function languagesUpdate(a, id) {
+  Members.findOneAndUpdate(
+    { _id: id },
+    {
+      $push: { languages: a }
+    }
+  ).then(function(dbMember) {
+    console.log(dbMember);
+  });
+}

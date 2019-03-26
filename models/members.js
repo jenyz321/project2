@@ -53,12 +53,14 @@ var UserSchema = new Schema({
   answers: {
     type: Array,
     trim: true,
-    required: "Please answer the question so we can find the best match!"
+    default: null
+    // required: "Please answer the question so we can find the best match!"
   },
   languages: {
     type: Array,
     trim: true,
-    required: "We want to know what languages you are familiar with!"
+    default: null
+    // required: "We want to know what languages you are familiar with!"
   }
 });
 // `date` must be of type Date. The default value is the current date
