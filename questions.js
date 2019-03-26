@@ -53,7 +53,7 @@ function getMatches(){  //Comparing user with their best friend match
    // Here we take the result of the user's survey POST and parse it.
   var userData = req.body;
   var userName = userData.name;
-  var userScores = userData.scores;
+  var userScores = userData.answers;
   // Converting the users score to a number (Instead of string)
   var userScoresNum = userScores.map(function (item) {
     return parseInt(item, 10);
@@ -81,7 +81,7 @@ function getMatches(){  //Comparing user with their best friend match
     totalDifference = 0;
     console.log("Total Diff " + totalDifference);
     console.log("Best match friend diff " + coderMatch.coderDifference);
-     var coderScoreSum = coderData[i].scores.reduce((tot, amt) => tot + amt, 0);
+     var coderScoreSum = coderData[i].answers.reduce((tot, amt) => tot + amt, 0);
     console.log("Total friend score " + coderScoreSum);
     totalDifference += Math.abs(userScoresSum - coderScoreSum);
     console.log(" -------------------> " + totalDifference);
