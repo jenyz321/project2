@@ -41,3 +41,4 @@ var questions = [
     answers: ["less than 1", "1 to 5", "6 to 10", "11 to 15", "15 plus"]
   }
 ];
+module.exports = questions;
