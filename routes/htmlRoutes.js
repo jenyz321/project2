@@ -11,7 +11,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/", function(req, res) {
+  app.get("/registration", function(req, res) {
     Members.find({}).then(function(member) {
       res.render("registration", {
         msg: "Welcome!",
