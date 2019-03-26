@@ -105,3 +105,4 @@ function getMatches(){  //Comparing user with their best friend match
   res.json(coderMatch);
 
 };
+module.exports = questions;
