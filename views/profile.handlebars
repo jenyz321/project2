@@ -1,5 +1,32 @@
-{{firstName}}
-{{lastName}}
-{{email}}
-{{questions}}
-{{languages}}
+<p>{{firstName}}</p>
+<p>{{lastName}}</p>
+<p>{{email}}</p>
+
+{{#if answers}}
+<p>Youve answered the questions!</p>
+{{else}}
+<p>Please Answer the questions.</p>
+<form action="/submitQuestions/{{id}}" method="post">
+    <p>Do you have more experience in front end or back end web development?</p>
+    <input type="text" name="one" placeholder="First Name"><br>
+    <p>How many years of experience do you have in SQL?</p>
+    <input type="text" name="two" placeholder="Last Name"><br>
+    <p>How many years of experience do you have in Java?</p>
+    <input type="text" name="three" placeholder="Email"><br>
+    <p>How many years of experience do you have in JavaScript?</p>
+    <input type="text" name="four" placeholder="Username"><br>
+    <p>How many years of experience do you have in C#?</p>
+    <input type="text" name="five" placeholder="Password"><br>
+    <p>How many years of experience do you have in C++?</p>
+    <input type="text" name="six" placeholder="Answers"><br>
+    <p>How many years of experience do you have in Python?</p>
+    <input type="text" name="seven" placeholder="Languages"><br>
+    <p>How many years of experience do you have in PHP?</p>
+    <input type="text" name="eight" placeholder="Languages"><br>
+    <p>How many years of experience do you have in Ruby on Rails?</p>
+    <input type="text" name="nine" placeholder="Languages"><br>
+    <p>How many years of experience do you have in IOS/Swift?</p>
+    <input type="text" name="ten" placeholder="Languages"><br>
+    <input type="submit">
+</form>
+{{/if}}

@@ -111,6 +111,36 @@ app.post("/register", function(req, res) {
     });
 });
 
+app.post("/submitQuestions/:id", function(req, res) {
+  a = req.body;
+  id = req.params.id;
+  console.log(a);
+  Members.findOneAndUpdate(
+    { _id: id },
+    {
+      $push: {
+        answers: {
+          $each: [
+            a.one,
+            a.two,
+            a.three,
+            a.four,
+            a.five,
+            a.six,
+            a.seven,
+            a.eight,
+            a.nine,
+            a.ten
+          ]
+        }
+      }
+    }
+  ).then(function(dbMember) {
+    console.log(dbMember);
+    res.json(dbMember);
+  });
+});
+
 app.delete("/delete/:id", function(req, res) {
   // Remove a note using the objectID
   Members.findOneAndRemove(
