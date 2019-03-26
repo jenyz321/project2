@@ -113,24 +113,26 @@ app.post("/register", function(req, res) {
 
 app.post("/submitQuestions/:id", function(req, res) {
   a = req.body;
-  id=req.params.id;
-  console.log(a.one);
+  id = req.params.id;
+  console.log(a);
   Members.findOneAndUpdate(
-     { _id: id },
-     {
-       $set: {
-        answers: [
-          a.one,
-          a.two,
-          a.three,
-          a.four,
-          a.five,
-          a.six,
-          a.seven,
-          a.eight,
-          a.nine,
-          a.ten
-        ]
+    { _id: id },
+    {
+      $push: {
+        answers: {
+          $each: [
+            a.one,
+            a.two,
+            a.three,
+            a.four,
+            a.five,
+            a.six,
+            a.seven,
+            a.eight,
+            a.nine,
+            a.ten
+          ]
+        }
       }
     }
   ).then(function(dbMember) {
