@@ -112,34 +112,23 @@ app.post("/register", function(req, res) {
 });
 
 app.post("/submitQuestions/:id", function(req, res) {
-  a = req.body;
+  a = Object.values(req.body);
   id = req.params.id;
   console.log(a);
-  Members.findOneAndUpdate(
-    { _id: id },
-    {
-      $push: {
-        answers: {
-          $each: [
-            a.one,
-            a.two,
-            a.three,
-            a.four,
-            a.five,
-            a.six,
-            a.seven,
-            a.eight,
-            a.nine,
-            a.ten
-          ]
-        }
-      }
-    }
-  ).then(function(dbMember) {
-    console.log(dbMember);
-    res.json(dbMember);
+  a.forEach(function(e) {
+    questionsUpdate(e, id);
   });
 });
+
+app.post("/submitLanguages/:id", function(req, res) {
+  a = Object.values(req.body);
+  id = req.params.id;
+  console.log(a);
+  a.forEach(function(e) {
+    languagesUpdate(e, id);
+  });
+});
+
 
 app.delete("/delete/:id", function(req, res) {
   // Remove a note using the objectID
@@ -165,3 +154,25 @@ app.delete("/delete/:id", function(req, res) {
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
+
+function questionsUpdate(a, id) {
+  Members.findOneAndUpdate(
+    { _id: id },
+    {
+      $push: { answers: a }
+    }
+  ).then(function(dbMember) {
+    console.log(dbMember);
+  });
+}
+
+function languagesUpdate(a, id) {
+  Members.findOneAndUpdate(
+    { _id: id },
+    {
+      $push: { languages: a }
+    }
+  ).then(function(dbMember) {
+    console.log(dbMember);
+  });
+}
