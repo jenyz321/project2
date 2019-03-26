@@ -1,4 +1,3 @@
-
 var express = require("express");
 var exphbs = require("express-handlebars");
 var mongoose = require("mongoose");
@@ -110,6 +109,34 @@ app.post("/register", function(req, res) {
       console.log("There was an error signing up!");
       console.log(res.json(err));
     });
+});
+
+app.post("/submitQuestions/:id", function(req, res) {
+  a = req.body;
+  id=req.params.id;
+  console.log(a.one);
+  Members.findOneAndUpdate(
+     { _id: id },
+     {
+       $set: {
+        answers: [
+          a.one,
+          a.two,
+          a.three,
+          a.four,
+          a.five,
+          a.six,
+          a.seven,
+          a.eight,
+          a.nine,
+          a.ten
+        ]
+      }
+    }
+  ).then(function(dbMember) {
+    console.log(dbMember);
+    res.json(dbMember);
+  });
 });
 
 app.delete("/delete/:id", function(req, res) {
