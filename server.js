@@ -129,7 +129,6 @@ app.post("/submitLanguages/:id", function(req, res) {
   });
 });
 
-
 app.delete("/delete/:id", function(req, res) {
   // Remove a note using the objectID
   Members.findOneAndRemove(
