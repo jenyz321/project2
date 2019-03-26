@@ -1,4 +1,3 @@
-require("dotenv").config();
 var express = require("express");
 var exphbs = require("express-handlebars");
 var mongoose = require("mongoose");
@@ -35,8 +34,19 @@ if (process.env.NODE_ENV === "test") {
 }
 
 //connection to mongo
-mongoose.connect("mongodb://localhost/codeConnectdb", {
-  useNewUrlParser: true
+var databaseUri = "mongodb://localhost/codeConnectdb";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseUri);
+}
+var db = mongoose.connection;
+db.on("error", function(err) {
+  console.log("Mongoose Error:" + err);
+});
+
+db.once("open", function() {
+  console.log("Mongoos connection successful.");
 });
 
 // app.post("/library", function(req, res) {
@@ -65,18 +75,60 @@ app.get("/users", function(req, res) {
     });
 });
 
-app.post("/submit", function(req, res) {
-  // Create a new member in the database
-  Members.create(req.body)
+app.post("/login", function(req, res) {
+  Members.findOne({ email: req.body.loginEmail })
     .then(function(dbMember) {
-      // If the member was updated successfully, send it back to the client
-      res.json(dbMember);
+      console.log(req.body.loginEmail);
+
+      console.log("dbMember", dbMember);
+      // If any Books are found, send them to the client
+      if (dbMember.password === req.body.loginPassword) {
+        res.render("profile", dbMember);
+      } else {
+        console.log("Wrong password!");
+        res.render("profile", dbMember);
+      }
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
       res.json(err);
     });
 });
+
+app.post("/register", function(req, res) {
+  // Create a new member in the database
+  Members.create(req.body)
+    .then(function(dbMember) {
+      //getMatches(req.body);
+      console.log("dbMember", dbMember);
+      // If the member was updated successfully, send it back to the client
+      res.json(dbMember);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      console.log("There was an error signing up!");
+      console.log(res.json(err));
+    });
+});
+
+app.post("/submitQuestions/:id", function(req, res) {
+  a = Object.values(req.body);
+  id = req.params.id;
+  console.log(a);
+  a.forEach(function(e) {
+    questionsUpdate(e, id);
+  });
+});
+
+app.post("/submitLanguages/:id", function(req, res) {
+  a = Object.values(req.body);
+  id = req.params.id;
+  console.log(a);
+  a.forEach(function(e) {
+    languagesUpdate(e, id);
+  });
+});
+
 
 app.delete("/delete/:id", function(req, res) {
   // Remove a note using the objectID
@@ -102,3 +154,25 @@ app.delete("/delete/:id", function(req, res) {
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
+
+function questionsUpdate(a, id) {
+  Members.findOneAndUpdate(
+    { _id: id },
+    {
+      $push: { answers: a }
+    }
+  ).then(function(dbMember) {
+    console.log(dbMember);
+  });
+}
+
+function languagesUpdate(a, id) {
+  Members.findOneAndUpdate(
+    { _id: id },
+    {
+      $push: { languages: a }
+    }
+  ).then(function(dbMember) {
+    console.log(dbMember);
+  });
+}
