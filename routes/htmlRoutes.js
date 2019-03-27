@@ -30,6 +30,14 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/profile/:id", function(req, res) {
+    Members.findOne({ where: { id: req.params.id } }).then(function() {
+      res.render("profile", {
+        example: member
+      });
+    });
+  });
+
   // Render 404 page for any unmatched routes
   // app.get("*", function(req, res) {
   //   res.render("404");
