@@ -4,22 +4,14 @@
       <div class="col-8 offset-2">
         <h1>{{msg}}</h1>
         <h2>New Coder? Let's get you registered!</h2>
-          <div class="form-group">
-            <label for="example-description">Email</label>
-            <textarea class="form-control" id="email" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
-          </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
+        <form id="registration-form" action="/register" method="post">
+          <input type="text" name="firstName" placeholder="First Name">
+          <input type="text" name="lastName" placeholder="Last Name">
+          <input type="text" name="email" placeholder="Email">
+          <input type="text" name="username" placeholder="Username">
+          <input type="text" name="password" placeholder="Password">
+          <input type="submit">
         </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
-      </div>
     </div>
   </div>
 </div>
