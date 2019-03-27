@@ -4,19 +4,11 @@
       <div class="col-8 offset-2">
         <h1>{{msg}}</h1>
         <h2>Welcome to Code Connections!</h2>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="example-text">Username:</label>
-            <input type="text" id="username" class="form-control" aria-describedby="example-text" placeholder="Enter Username">
-          </div>
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
-      </div>
+        <form id="login-form" action="/login" method="post">
+          <input type="text" name="loginEmail" placeholder="Email">
+          <input type="text" name="loginPassword" placeholder="Password">
+          <input type="submit">
+        </form>
     </div>
   </div>
 </div>
