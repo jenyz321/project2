@@ -75,6 +75,14 @@ app.get("/users", function(req, res) {
     });
 });
 
+app.get("/register", function(req, res) {
+  res.render("registration");
+});
+
+app.get("/", function(req, res) {
+  res.render("index");
+});
+
 app.post("/login", function(req, res) {
   Members.findOne({ email: req.body.loginEmail })
     .then(function(dbMember) {
@@ -95,7 +103,7 @@ app.post("/login", function(req, res) {
     });
 });
 
-app.post("/register", function(req, res) {
+app.post("/registerSubmit", function(req, res) {
   // Create a new member in the database
   Members.create(req.body)
     .then(function(dbMember) {
