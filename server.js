@@ -91,10 +91,12 @@ app.post("/login", function(req, res) {
       console.log("dbMember", dbMember);
       // If any Books are found, send them to the client
       if (dbMember.password === req.body.loginPassword) {
-        res.render("profile", dbMember);
+        app.locals.user = dbMember;
+        res.render("profile", apps.locals.user);
       } else {
         console.log("Wrong password!");
-        res.render("profile", dbMember);
+        app.locals.user = dbMember;
+        res.render("profile", app.locals.user);
       }
     })
     .catch(function(err) {
@@ -110,7 +112,7 @@ app.post("/registerSubmit", function(req, res) {
       //getMatches(req.body);
       console.log("dbMember", dbMember);
       // If the member was updated successfully, send it back to the client
-      res.json(dbMember);
+      res.render("index", dbMember);
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
@@ -126,6 +128,7 @@ app.post("/submitQuestions/:id", function(req, res) {
   a.forEach(function(e) {
     questionsUpdate(e, id);
   });
+  res.render("profile", app.locals.user);
 });
 
 app.post("/submitLanguages/:id", function(req, res) {
