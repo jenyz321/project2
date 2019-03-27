@@ -92,7 +92,7 @@ app.post("/login", function(req, res) {
       // If any Books are found, send them to the client
       if (dbMember.password === req.body.loginPassword) {
         app.locals.user = dbMember;
-        res.render("profile", apps.locals.user);
+        res.render("profile", app.locals.user);
       } else {
         console.log("Wrong password!");
         app.locals.user = dbMember;
@@ -128,6 +128,11 @@ app.post("/submitQuestions/:id", function(req, res) {
   a.forEach(function(e) {
     questionsUpdate(e, id);
   });
+
+  //THIS IS JOE'S PROBLEM POINT
+  //For some reason I can't get it to re-render the page and display
+  //the "questions filled out" else statement. I hate handlebars
+
   res.render("profile", app.locals.user);
 });
 
