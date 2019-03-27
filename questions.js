@@ -5,7 +5,7 @@ var questions = [
     answers: ["Front end", "Back end"]
   },
   {
-    questionTwo: "How many years of experience do you have in SQL?",git 
+    questionTwo: "How many years of experience do you have in SQL?",
     answers: ["less than 1", "1 to 5", "6 to 10", "11 to 15", "15 plus"]
   },
   {
@@ -42,6 +42,8 @@ var questions = [
   }
 ];
 
+
+// getting matches
 function getMatches(){  //Comparing user with their best friend match
   var totalDifference = 0;
   //Object to hold the best match
