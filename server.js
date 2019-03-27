@@ -83,6 +83,10 @@ app.get("/", function(req, res) {
   res.render("index");
 });
 
+app.get("/questions", function(req, res) {
+  res.render("profile");
+});
+
 app.post("/login", function(req, res) {
   Members.findOne({ email: req.body.loginEmail })
     .then(function(dbMember) {
