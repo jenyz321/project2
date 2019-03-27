@@ -75,6 +75,14 @@ app.get("/users", function(req, res) {
     });
 });
 
+app.get("/register", function(req, res) {
+  res.render("registration");
+});
+
+app.get("/", function(req, res) {
+  res.render("index");
+});
+
 app.post("/login", function(req, res) {
   Members.findOne({ email: req.body.loginEmail })
     .then(function(dbMember) {
@@ -83,10 +91,12 @@ app.post("/login", function(req, res) {
       console.log("dbMember", dbMember);
       // If any Books are found, send them to the client
       if (dbMember.password === req.body.loginPassword) {
-        res.render("profile", dbMember);
+        app.locals.user = dbMember;
+        res.render("profile", apps.locals.user);
       } else {
         console.log("Wrong password!");
-        res.render("profile", dbMember);
+        app.locals.user = dbMember;
+        res.render("profile", app.locals.user);
       }
     })
     .catch(function(err) {
@@ -95,14 +105,14 @@ app.post("/login", function(req, res) {
     });
 });
 
-app.post("/register", function(req, res) {
+app.post("/registerSubmit", function(req, res) {
   // Create a new member in the database
   Members.create(req.body)
     .then(function(dbMember) {
       //getMatches(req.body);
       console.log("dbMember", dbMember);
       // If the member was updated successfully, send it back to the client
-      res.json(dbMember);
+      res.render("index", dbMember);
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
@@ -118,6 +128,7 @@ app.post("/submitQuestions/:id", function(req, res) {
   a.forEach(function(e) {
     questionsUpdate(e, id);
   });
+  res.render("profile", app.locals.user);
 });
 
 app.post("/submitLanguages/:id", function(req, res) {
