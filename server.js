@@ -141,7 +141,7 @@ console.log('in submitQueustions');
   ).then(function (dbMember) {
     console.log(dbMember);
     dbMember.answers = [1,3,4,1,3,4,5,3,1,]
-    res.render("index",dbMember);
+    res.render("matches",dbMember);
   })
     .catch(function (err) {
       // If an error occurs, send it back to the client
