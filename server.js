@@ -126,19 +126,30 @@ app.post("/registerSubmit", function(req, res) {
 });
 
 app.post("/submitQuestions/:id", function(req, res) {
-  a = Object.values(req.body);
-  id = req.params.id;
-  console.log(a);
-  a.forEach(function(e) {
-    questionsUpdate(e, id);
-  });
+  Members.findByIdAndUpdate(answers)
+    .then(function(answers) {
+      console.log("answers", answers);
+      res.render("profile", answers);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      console.log("There was an error saving your answers!");
+      console.log(res.json(err));
+    });
 
-  //THIS IS JOE'S PROBLEM POINT
-  //For some reason I can't get it to re-render the page and display
-  //the "questions filled out" else statement. I hate handlebars
-
-  res.render("profile", app.locals.user);
+  // a = Object.values(req.body);
+  // id = req.params.id;
+  // console.log(a);
+  // a.forEach(function(e) {
+  //   questionsUpdate(e, id);
 });
+
+//THIS IS JOE'S PROBLEM POINT
+//For some reason I can't get it to re-render the page and display
+//the "questions filled out" else statement. I hate handlebars
+
+// res.render("profile", app.locals.user);
+// });
 
 app.post("/submitLanguages/:id", function(req, res) {
   a = Object.values(req.body);
