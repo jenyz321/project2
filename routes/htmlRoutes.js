@@ -31,7 +31,11 @@ module.exports = function(app) {
   // });
  
   app.get("/profile/:id", function(req, res) {
+    console.log('in profile');
+  //  console.log(member)
     Members.findOne({ where: { id: req.params.id } }).then(function() {
+      console.log('in findone');
+      console.log(member)
       res.render("profile", {
         example: member
       });
