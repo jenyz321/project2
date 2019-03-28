@@ -42,6 +42,8 @@ var questions = [
   }
 ];
 
+
+// getting matches
 function getMatches(){  //Comparing user with their best friend match
   var totalDifference = 0;
   //Object to hold the best match
