@@ -29,7 +29,7 @@ module.exports = function(app) {
   //     });
   //   });
   // });
-
+ 
   app.get("/profile/:id", function(req, res) {
     Members.findOne({ where: { id: req.params.id } }).then(function() {
       res.render("profile", {
