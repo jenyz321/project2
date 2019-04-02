@@ -6,3 +6,12 @@ body {max-width: 1200px;
 margin: 20px auto;
 width: 90%;
 }
+
+#home, #question-base, #matches {
+  background-color: aquamarine;
+  font-family: cursive;
+  text-align: inherit;
+  font-size: 20px;
+  border: brown;
+  border-style: ridge;
+}
