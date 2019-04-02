@@ -128,8 +128,8 @@ app.post("/registerSubmit", function (req, res) {
 
 app.post("/submitQuestions/:id", function (req, res) {
 console.log('in submitQueustions');
- // a = Object.values(req.body);
-  let a = [1,3,4,1,3,4,5,3,1,]
+ a = req.body.answers;
+ //let a = [1,3,4,1,3,4,5,3,1,]
   id = req.params.id;
   console.log(id);
   console.log(a);
@@ -140,7 +140,7 @@ console.log('in submitQueustions');
     }
   ).then(function (dbMember) {
     console.log(dbMember);
-    dbMember.answers = [1,3,4,1,3,4,5,3,1,]
+    dbMember.answers = a;
     res.render("matches",dbMember);
   })
     .catch(function (err) {
