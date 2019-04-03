@@ -48,7 +48,7 @@ db.on("error", function (err) {
 db.once("open", function () {
   console.log("Mongoos connection successful.");
 });
-
+let userLoginId = "";
 // app.post("/library", function(req, res) {
 //   db.Library.create({ name: "Code Members" })
 //     .then(function(dbLibrary) {
@@ -83,9 +83,18 @@ app.get("/", function (req, res) {
   res.render("index");
 });
 
-app.get("/questions", function (req, res) {
-  res.render("profile");
-});
+// app.get("/questions/:id", function (req, res) {
+//   id = req.params.id
+//   console.log(`in questions id ${id}`)
+//   Members.findOne({ id: id })
+//     .then(function (dbMember) {
+//       console.log('in login')
+//       console.log(req.body.loginEmail);
+
+//       console.log("dbMember", dbMember);
+//   res.render("profile", dbMember);
+//     });
+// });
 
 app.post("/login", function (req, res) {
   Members.findOne({ email: req.body.loginEmail })
@@ -94,9 +103,12 @@ app.post("/login", function (req, res) {
       console.log(req.body.loginEmail);
 
       console.log("dbMember", dbMember);
+      userLoginId = dbMember.id;
+      console.log('login dbMember ' + userLoginId)
       // If any Books are found, send them to the client
       if (dbMember.password === req.body.loginPassword) {
         app.locals.user = dbMember;
+        app.locals.id = dbMember.id;
         res.render("profile", app.locals.user);
       } else {
         console.log("Wrong password!");
@@ -126,14 +138,18 @@ app.post("/registerSubmit", function (req, res) {
     });
 });
 
-app.post("/submitQuestions/:id", function (req, res) {
+app.post("/submitQuestions/", function (req, res) {
+  console.log('req.body data');
 console.log('in submitQueustions');
+
  a = req.body.answers;
  //let a = [1,3,4,1,3,4,5,3,1,]
-  id = req.params.id;
+  id = userLoginId;
   console.log(id);
   console.log(a);
   Members.findOneAndUpdate(
+
+    
     { _id: id },
     {
       $push: { answers: a }
@@ -146,7 +162,7 @@ console.log('in submitQueustions');
     .catch(function (err) {
       // If an error occurs, send it back to the client
       console.log("There was an error saving your answers!");
-      console.log(res.json(err));
+     // console.log(res.json(err));
     })
   });
 
