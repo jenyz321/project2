@@ -1,8 +1,16 @@
 .list-group-item {
   line-height: 2.5;
 }
-
 body {max-width: 1200px;
 margin: 20px auto;
 width: 90%;
+background-image: url(../images/background.jpg);
+}
+#home, #question-base, #matches, #questions {
+  background-color: aquamarine;
+  font-family: cursive;
+  text-align: inherit;
+  font-size: 20px;
+  border: brown;
+  border-style: ridge;
 }
